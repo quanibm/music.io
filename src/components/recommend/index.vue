@@ -1,12 +1,11 @@
 <template>
     <div class="recommend">
         <div class="recommend-content">
-            <div v-if="this.recommends.length > 0" class="slider-wrapper">
+            <div v-if="this.banners.length > 0" class="slider-wrapper">
                 <slider>
-                    <div v-for="item in recommends" :key="item.id">
+                    <div v-for="item in banners" :key="item.id">
                         <a :href="item.linkUrl">
                             <img :src="item.picUrl" alt="banner">
- 
                         </a>
                     </div>
                 </slider>
@@ -21,25 +20,38 @@
 
 <script>
 import Slider from "base/slider/slider";
-import { getRecommend } from "api/recommend";
+import { getRecommend, getDiscList } from "api/recommend";
 import { ERR_OK } from "api/config";
 
 export default {
   data() {
     return {
-      recommends: []
+      banners: []
     };
   },
   created() {
     this._getRecommend();
+    this._getDiscList();
   },
   methods: {
     _getRecommend() {
       getRecommend().then(res => {
         if (res.code === ERR_OK) {
-          this.recommends = res.data.slider;
+          this.banners = res.data.slider;
         }
       });
+    },
+    _getDiscList() {
+      getDiscList()
+        .then(res => {
+          if (res.code === ERR_OK) {
+            console.log(111);
+            console.log(res.data.list);
+          }
+        })
+        .catch(() => {
+          console.log("没有请求到数据");
+        });
     }
   },
   components: { Slider }
