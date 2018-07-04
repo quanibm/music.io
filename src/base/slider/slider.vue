@@ -86,7 +86,6 @@ export default {
 
       this.slider.on("scrollEnd", () => {
         let pageIndex = this.slider.getCurrentPage().pageX;
-        console.log("​_initSlider -> pageIndex", pageIndex);
 
         // if (this.loop) {
         //   pageIndex -= 1;
@@ -114,6 +113,10 @@ export default {
       this.timer = setTimeout(() => {
         this.slider.next(400);
       }, this.interval);
+    },
+    destroyed() {
+      //这个钩子在我们切换组建的时候调用，在我们切换页面的时候内存中可能有一个定时器，因此我们在组件销毁的的时候最好是清除他,释放资源。
+      clearTimeout(this.timer);
     }
   }
 };
