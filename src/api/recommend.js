@@ -2,7 +2,7 @@
  * @Author: nikolas.zengchunhui 
  * @Date: 2018-07-01 13:39:22 
  * @Last Modified by: nikolas.zengchunhui
- * @Last Modified time: 2018-07-04 18:04:58
+ * @Last Modified time: 2018-07-04 19:44:26
  */
 import jsonp from 'common/js/jsonp'
 import { commonParams, options } from './config';
