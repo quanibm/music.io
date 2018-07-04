@@ -36,15 +36,22 @@
 <script>
 import Scroll from "base/scroll/scroll";
 import Slider from "base/slider/slider";
+<<<<<<< HEAD
 import Loading from "base/loading/loading";
+=======
+>>>>>>> 62211d2c40d809f7274a24e8c0bf0e9cf2ea0ba7
 import { getRecommend, getDiscList } from "api/recommend";
 import { ERR_OK } from "api/config";
 
 export default {
   data() {
     return {
+<<<<<<< HEAD
       banners: [],
       discList: []
+=======
+      banners: []
+>>>>>>> 62211d2c40d809f7274a24e8c0bf0e9cf2ea0ba7
     };
   },
   created() {
@@ -63,6 +70,7 @@ export default {
       getDiscList()
         .then(res => {
           if (res.code === ERR_OK) {
+<<<<<<< HEAD
             this.discList = res.data.list;
           }
         })
@@ -75,6 +83,15 @@ export default {
         this.$refs.scroll.refresh();
         this.checkLoaded = true;
       }
+=======
+            console.log(111);
+            console.log(res.data.list);
+          }
+        })
+        .catch(() => {
+          console.log("没有请求到数据");
+        });
+>>>>>>> 62211d2c40d809f7274a24e8c0bf0e9cf2ea0ba7
     }
   },
   components: { Slider, Scroll, Loading }
