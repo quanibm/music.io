@@ -1,5 +1,5 @@
 <template>
-<scroll class="listView" :data="data" ref="listview">
+<scroll class="listView" :data="data" ref="listview" :listenScroll="listenScroll" @scroll="scroll">
   <ul>
     <li v-for="group in data" :key="group.id" class="list-group" ref="listGroup">
       <h2 class="list-group-title" v-text="group.title"></h2>
@@ -29,6 +29,14 @@ const ANCHOR_INDEX = 18;
 export default {
   created() {
     this.touch = {};
+    this.listenScroll = true;
+    this.listHeight = [];
+  },
+  data() {
+    return {
+      scrollY: -1,
+      currentIndex: 0
+    };
   },
   props: {
     data: {
@@ -60,8 +68,28 @@ export default {
       console.log(anchorIndex);
       this._scrollTo(anchorIndex);
     },
+    scroll(pos) {
+      console.log(pos);
+      this.scrollY = pos.y;
+      this.currentIndex;
+    },
     _scrollTo(index) {
       this.$refs.listview.scrollToElement(this.$refs.listGroup[index], 0);
+    },
+    _calculateHeight() {
+      this.listHeight = [];
+      const list = this.$refs.listGroup;
+      for (let i = 0, len = list.length; i < len; i++) {
+        this.listHeight.push(list[i].clientHeight)
+      }
+      console.log(this.listHeight)
+    }
+  },
+  watch: {
+    data() {
+      setTimeout(() => {
+        this._calculateHeight();
+      }, 20);
     }
   },
   components: {

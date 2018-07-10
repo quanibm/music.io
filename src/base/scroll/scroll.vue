@@ -19,6 +19,10 @@ export default {
     data: {
       type: Array,
       default: null
+    },
+    listenScroll: {
+      type: Boolean,
+      default: false
     }
   },
   mounted() {
@@ -36,6 +40,13 @@ export default {
         click: this.click
       });
       console.log(this.scroll);
+
+      if (this.listenScroll) {
+        let me = this;
+        this.scroll.on("scroll", pos => {
+          me.$emit('scroll', pos)
+        });
+      }
     },
     enable() {
       //启用 better-scroll
